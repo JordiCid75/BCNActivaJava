@@ -8,15 +8,6 @@ public class Venda {
 	ArrayList<Producte> productList = new ArrayList<Producte>();
 	float preuTotal;
 
-	public Venda() {
-		// TODO Auto-generated constructor stub
-		//for (int i = 1; i < 10; i++) {
-		//	Producte p = new Producte();
-		//	p.nom = "P" + i;
-		//	p.preu = i;
-		//	productList.add(p);
-		//}
-	}
 
 	public void calcularTotal() throws VendaBuidaException
 	{
