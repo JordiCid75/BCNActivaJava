@@ -26,10 +26,8 @@ public class Resultado {
 		Charset charset = Charset.forName("US-ASCII");
 		OpenOption[] opt = {APPEND, CREATE};
 
-		System.out.println(linea);
-		
 		try (BufferedWriter writer = Files.newBufferedWriter(file, charset, opt)) {
-			writer.write(linea);
+			writer.write(linea +"\n");
 		} catch (IOException x) {
 			System.err.format("IOException: %s%n", x);
 		}
