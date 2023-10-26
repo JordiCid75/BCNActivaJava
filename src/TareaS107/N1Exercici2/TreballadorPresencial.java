@@ -1,4 +1,4 @@
-package TareaS107.N1Exercici1;
+package TareaS107.N1Exercici2;
 
 public class TreballadorPresencial extends Treballador {
 	double benzina;

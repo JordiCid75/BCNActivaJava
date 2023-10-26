@@ -1,4 +1,4 @@
-package TareaS107.N1Exercici1;
+package TareaS107.N1Exercici2;
 
 public class Treballador {
 	String nom;
