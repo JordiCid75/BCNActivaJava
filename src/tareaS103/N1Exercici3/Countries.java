@@ -1,4 +1,4 @@
-package tareaS103.N1Exerici3;
+package tareaS103.N1Exercici3;
 
 import java.io.File;
 import java.io.FileNotFoundException;

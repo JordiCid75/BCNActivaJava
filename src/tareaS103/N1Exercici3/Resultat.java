@@ -1,4 +1,4 @@
-package tareaS103.N1Exerici3;
+package tareaS103.N1Exercici3;
 import java.io.FileWriter;   // Import the FileWriter class
 import java.io.IOException;  // Import the IOException class to handle errors
 

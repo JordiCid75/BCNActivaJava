@@ -1,4 +1,4 @@
-package tareaS103.N1Exerici3;
+package tareaS103.N1Exercici3;
 
 import java.io.File; // Import the File class
 import java.io.FileNotFoundException; // Import this class to handle errors
