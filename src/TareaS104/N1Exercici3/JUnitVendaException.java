@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 class JUnitVendaException {
 
 	@Test
-	void indexOutOfBoundException() {
+	void controlFueraDeIndice() {
 		Venda v = new Venda();
 		assertThrows(IndexOutOfBoundsException.class,() -> v.calcularTotal());
 	}

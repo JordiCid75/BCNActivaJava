@@ -9,12 +9,12 @@ public class Venda {
 
 	public void calcularTotal() throws IndexOutOfBoundsException {
 
-		try {
+	//	try {
 			// esto genera la excepcion
 			System.out.println(productList.get(1));
 
-		} catch (IndexOutOfBoundsException e) {
-			throw e;
-		}
+	//	} catch (IndexOutOfBoundsException e) {
+	//		throw e;
+	//	}
 	}
 }
