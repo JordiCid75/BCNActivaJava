@@ -9,12 +9,17 @@ public class Venda {
 	float preuTotal;
 
 
+	public void addProducte(Producte p) {
+		productList.add(p);
+	}
 	public void calcularTotal() throws VendaBuidaException
 	{
 		
 		try {
-			// esto genera la excepcion
-			System.out.println(productList.get(1).nom);
+			if (productList.isEmpty()) {
+				throw new VendaBuidaException(msg);
+			}
+			//System.out.println(productList.get(1).nom);
 			
 			for (Producte producte : productList) {
 				System.out.println(producte.nom + " | " + producte.preu);

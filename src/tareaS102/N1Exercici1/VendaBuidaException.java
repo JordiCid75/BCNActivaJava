@@ -6,11 +6,11 @@ public class VendaBuidaException extends Exception {
 	private String message;
 	public VendaBuidaException(String msg) {
 		// TODO Auto-generated constructor stub
-		this.message = msg;
+		super(msg);
 	}
 	@Override
 	public String getMessage() {
 		// TODO Auto-generated method stub
-		return this.message;
+		return super.getMessage();
 	}
 }
