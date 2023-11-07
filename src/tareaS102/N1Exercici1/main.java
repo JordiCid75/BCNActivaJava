@@ -27,8 +27,9 @@ public class main {
 				System.out.println(e.getMessage());
 			}
 			System.out.println("Preu Total Venda " + v.preuTotal);
-			// esto provoca el IndexOutOfBoundException y se muestra un mensaje distinto al no pasar por el método CalcularTotal()
-			Venda v2  = new Venda();
+			// esto provoca el IndexOutOfBoundException y se muestra un mensaje distinto al
+			// no pasar por el método CalcularTotal()
+			Venda v2 = new Venda();
 			System.out.println(v2.productList.get(1).nom);
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
