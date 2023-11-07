@@ -8,9 +8,4 @@ public class VendaBuidaException extends Exception {
 		// TODO Auto-generated constructor stub
 		super(msg);
 	}
-	@Override
-	public String getMessage() {
-		// TODO Auto-generated method stub
-		return super.getMessage();
-	}
 }
