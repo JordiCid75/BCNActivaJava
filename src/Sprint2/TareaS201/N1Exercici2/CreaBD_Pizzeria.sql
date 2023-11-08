@@ -60,6 +60,7 @@ CREATE TABLE `Pizzeria`.`ComandaDetall` (
   `IdComanda` INT NOT NULL,
   `IdProducte` INT NOT NULL,
   `PreuAplicat` DECIMAL(6,2) NULL,
+  `Cantidad` DECIMAL(6,2) NULL,
   PRIMARY KEY (`IdComandaDetall`),
   UNIQUE INDEX `IdComandaDetall_UNIQUE` (`IdComandaDetall` ASC) VISIBLE);
 
@@ -70,6 +71,7 @@ CREATE TABLE `Pizzeria`.`Producte` (
   `Preu` DECIMAL(6,2) NULL,
   `Descripcio` VARCHAR(255) NULL,
   `IdCategoria` INT NULL,
+  `IdSubCategoria` INT NULL,
   `ImatgeURL` VARCHAR(255) NULL,
   PRIMARY KEY (`IdProducte`),
   UNIQUE INDEX `IdProducte_UNIQUE` (`IdProducte` ASC) VISIBLE);
@@ -80,6 +82,16 @@ CREATE TABLE `Pizzeria`.`Categoria` (
   `Nom` VARCHAR(255) NULL,
   PRIMARY KEY (`IdCategoria`),
   UNIQUE INDEX `IdCategoria_UNIQUE` (`IdCategoria` ASC) VISIBLE);
+
+DROP TABLE IF EXISTS `SubCategoria`;
+CREATE TABLE `Pizzeria`.`SubCategoria` (
+  `IdSubCategoria` INT NOT NULL AUTO_INCREMENT,
+  `IdCategoria` INT NOT NULL,
+  `Nom` VARCHAR(255) NULL,
+  PRIMARY KEY (`IdSubCategoria`),
+  UNIQUE KEY `IdSubCategoria_UNIQUE` (`IdSubCategoria` ASC) VISIBLE,
+  UNIQUE KEY `FK_CategoriaSubCategoria` (`IdCategoria`, `IdSubCategoria`) VISIBLE)
+;
 
 DROP TABLE IF EXISTS `Botiga`;
 CREATE TABLE `Pizzeria`.`Botiga` (
@@ -200,10 +212,20 @@ ADD CONSTRAINT `FK_ComandaDetall_Comanda`
   ON UPDATE NO ACTION;
 
 ALTER TABLE `Pizzeria`.`Producte` 
-ADD INDEX `FK_Producte_Categoria_idx` (`IdCategoria` ASC) VISIBLE;
+ADD INDEX `FK_Producte_SubCategoria_idx` (`IdCategoria` ASC) VISIBLE;
 ;
 ALTER TABLE `Pizzeria`.`Producte` 
-ADD CONSTRAINT `FK_Producte_Categoria`
+ADD CONSTRAINT `FK_Producte_SubCategoria`
+  FOREIGN KEY (`IdCategoria`, `IdSubCategoria`)
+  REFERENCES `Pizzeria`.`SubCategoria` (`IdCategoria`, `IdSubCategoria`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION;
+
+ALTER TABLE `Pizzeria`.`SubCategoria` 
+ADD INDEX `FK_SubCategoria_Categoria_idx` (`IdCategoria` ASC) VISIBLE;
+;
+ALTER TABLE `Pizzeria`.`SubCategoria` 
+ADD CONSTRAINT `FK_SubCategoria_Categoria`
   FOREIGN KEY (`IdCategoria`)
   REFERENCES `Pizzeria`.`Categoria` (`IdCategoria`)
   ON DELETE NO ACTION
@@ -280,6 +302,26 @@ INSERT INTO `Pizzeria`.`Categoria`
 VALUES
 ("Pizzes");
 
+INSERT INTO `Pizzeria`.`SubCategoria`
+(`IdCategoria`, `Nom`)
+VALUES
+(1,"Begudes");
+INSERT INTO `Pizzeria`.`SubCategoria`
+(`IdCategoria`, `Nom`)
+VALUES
+(2,"Hamburguesses");
+INSERT INTO `Pizzeria`.`SubCategoria`
+(`IdCategoria`, `Nom`)
+VALUES
+(3,"Tipus Pizza 1");
+INSERT INTO `Pizzeria`.`SubCategoria`
+(`IdCategoria`, `Nom`)
+VALUES
+(3,"Tipus Pizza 2");
+INSERT INTO `Pizzeria`.`SubCategoria`
+(`IdCategoria`, `Nom`)
+VALUES
+(3,"Tipus Pizza 3");
 
 INSERT INTO `Pizzeria`.`TipusEmpleat`
 (`Nom`)
@@ -349,41 +391,41 @@ VALUES
 
 
 INSERT INTO `Pizzeria`.`Producte`
-(`Nom`, `Preu`, `Descripcio`, `IdCategoria`, `ImatgeURL`)
+(`Nom`, `Preu`, `Descripcio`, `IdCategoria`, `ImatgeURL`, `IdSubcategoria`)
 VALUES
-("Beguda 1", 3, "Descripcio Beguda 1", 1, null);
+("Beguda 1", 3, "Descripcio Beguda 1", 1, null, 1);
 INSERT INTO `Pizzeria`.`Producte`
-(`Nom`, `Preu`, `Descripcio`, `IdCategoria`, `ImatgeURL`)
+(`Nom`, `Preu`, `Descripcio`, `IdCategoria`, `ImatgeURL`, `IdSubcategoria`)
 VALUES
-("Beguda 2", 2, "Descripcio Beguda 2", 1, null);
+("Beguda 2", 2, "Descripcio Beguda 2", 1, null, 1);
 INSERT INTO `Pizzeria`.`Producte`
-(`Nom`, `Preu`, `Descripcio`, `IdCategoria`, `ImatgeURL`)
+(`Nom`, `Preu`, `Descripcio`, `IdCategoria`, `ImatgeURL`, `IdSubcategoria`)
 VALUES
-("Beguda 3", 5, "Descripcio Beguda 3", 1, null);
+("Beguda 3", 5, "Descripcio Beguda 3", 1, null, 1);
 INSERT INTO `Pizzeria`.`Producte`
-(`Nom`, `Preu`, `Descripcio`, `IdCategoria`, `ImatgeURL`)
+(`Nom`, `Preu`, `Descripcio`, `IdCategoria`, `ImatgeURL`, `IdSubcategoria`)
 VALUES
-("Hamburguessa 1", 7, "Descripcio Hamburguessa 1", 2, null);
+("Hamburguessa 1", 7, "Descripcio Hamburguessa 1", 2, null, 2);
 INSERT INTO `Pizzeria`.`Producte`
-(`Nom`, `Preu`, `Descripcio`, `IdCategoria`, `ImatgeURL`)
+(`Nom`, `Preu`, `Descripcio`, `IdCategoria`, `ImatgeURL`, `IdSubcategoria`)
 VALUES
-("Hamburguessa 2", 10, "Descripcio Hamburguessa 2", 2, null);
+("Hamburguessa 2", 10, "Descripcio Hamburguessa 2", 2, null, 2);
 INSERT INTO `Pizzeria`.`Producte`
-(`Nom`, `Preu`, `Descripcio`, `IdCategoria`, `ImatgeURL`)
+(`Nom`, `Preu`, `Descripcio`, `IdCategoria`, `ImatgeURL`, `IdSubcategoria`)
 VALUES
-("Hamburguessa 3", 15, "Descripcio Hamburguessa 3", 2, null);
+("Hamburguessa 3", 15, "Descripcio Hamburguessa 3", 2, null, 2);
 INSERT INTO `Pizzeria`.`Producte`
-(`Nom`, `Preu`, `Descripcio`, `IdCategoria`, `ImatgeURL`)
+(`Nom`, `Preu`, `Descripcio`, `IdCategoria`, `ImatgeURL`, `IdSubcategoria`)
 VALUES
-("Pizza 1", 10, "Descripcio Pizza 1", 3, null);
+("Pizza 1", 10, "Descripcio Pizza 1", 3, null, 3);
 INSERT INTO `Pizzeria`.`Producte`
-(`Nom`, `Preu`, `Descripcio`, `IdCategoria`, `ImatgeURL`)
+(`Nom`, `Preu`, `Descripcio`, `IdCategoria`, `ImatgeURL`, `IdSubcategoria`)
 VALUES
-("Pizza 2", 20, "Descripcio Pizza 2", 3, null);
+("Pizza 2", 20, "Descripcio Pizza 2", 3, null, 4);
 INSERT INTO `Pizzeria`.`Producte`
-(`Nom`, `Preu`, `Descripcio`, `IdCategoria`, `ImatgeURL`)
+(`Nom`, `Preu`, `Descripcio`, `IdCategoria`, `ImatgeURL`, `IdSubcategoria`)
 VALUES
-("Pizza 3", 30, "Descripcio Pizza 3", 3, null);
+("Pizza 3", 30, "Descripcio Pizza 3", 3, null, 5);
 
 
 INSERT INTO `Pizzeria`.`Client`
@@ -418,12 +460,12 @@ INSERT INTO `Pizzeria`.`Comanda`
 VALUES
 (1, NOW(), 1, 0, 0, 1, 3, curdate());
 INSERT INTO `Pizzeria`.`ComandaDetall`
-(`IdComanda`, `IdProducte`, `PreuAplicat`)
+(`IdComanda`, `IdProducte`, `PreuAplicat`, `Cantidad`)
 VALUES
-(1, 1, 0),
-(1, 2, 0),
-(1, 4, 0),
-(1, 7, 0)
+(1, 1, 0, 1),
+(1, 2, 0, 2),
+(1, 4, 0, 1),
+(1, 7, 0, 1)
 ;
 
 
@@ -433,12 +475,12 @@ INSERT INTO `Pizzeria`.`Comanda`
 VALUES
 (2, NOW(), 1, 0, 0, 1, 3, curdate());
 INSERT INTO `Pizzeria`.`ComandaDetall`
-(`IdComanda`, `IdProducte`, `PreuAplicat`)
+(`IdComanda`, `IdProducte`, `PreuAplicat`, `Cantidad`)
 VALUES
-(2, 2, 0),
-(2, 3, 0),
-(2, 5, 0),
-(2, 8, 0)
+(2, 2, 0, 2),
+(2, 3, 0, 1),
+(2, 5, 0, 1),
+(2, 8, 0, 1)
 ;
 
 
@@ -448,12 +490,12 @@ INSERT INTO `Pizzeria`.`Comanda`
 VALUES
 (3, NOW(), 1, 0, 0, 1, 3, curdate());
 INSERT INTO `Pizzeria`.`ComandaDetall`
-(`IdComanda`, `IdProducte`, `PreuAplicat`)
+(`IdComanda`, `IdProducte`, `PreuAplicat`, `Cantidad`)
 VALUES
-(3, 3, 0),
-(3, 3, 0),
-(3, 6, 0),
-(3, 9, 0)
+(3, 3, 0, 2),
+(3, 3, 0, 1),
+(3, 6, 0, 1),
+(3, 9, 0, 1)
 ;
 
 
@@ -463,12 +505,12 @@ INSERT INTO `Pizzeria`.`Comanda`
 VALUES
 (4, NOW(), 2, 0, 0, 1, 1, curdate());
 INSERT INTO `Pizzeria`.`ComandaDetall`
-(`IdComanda`, `IdProducte`, `PreuAplicat`)
+(`IdComanda`, `IdProducte`, `PreuAplicat`, `Cantidad`)
 VALUES
-(4, 1, 0),
-(4, 2, 0),
-(4, 5, 0),
-(4, 6, 0)
+(4, 1, 0, 3),
+(4, 2, 0, 2),
+(4, 5, 0, 3),
+(4, 6, 0, 4)
 ;
 
 
@@ -479,17 +521,17 @@ VALUES
 (2, NOW(), 1, 0, 0, 1, 3, curdate());
 
 INSERT INTO `Pizzeria`.`ComandaDetall`
-(`IdComanda`, `IdProducte`, `PreuAplicat`)
+(`IdComanda`, `IdProducte`, `PreuAplicat`, `Cantidad`)
 VALUES
-(5, 1, 0),
-(5, 1, 0),
-(5, 9, 0),
-(5, 7, 0)
+(5, 1, 0, 2),
+(5, 1, 0, 4),
+(5, 9, 0, 2),
+(5, 7, 0, 4)
 ;
 
 UPDATE `Pizzeria`.`ComandaDetall` cd 
 inner join `Pizzeria`.`Producte` p on cd.`IdProducte` = p.`IdProducte`
-SET cd.`PreuAplicat` = p.`Preu`;
+SET cd.`PreuAplicat` = p.`Preu` * cd.`Cantidad`;
 
 UPDATE `Pizzeria`.`Comanda` c, 
 (SELECT `IdComanda`,SUM(`PreuAplicat`) as cdsumPreu, COUNT(`IdProducte`) as cdNumProd FROM `Pizzeria`.`ComandaDetall`
@@ -498,15 +540,6 @@ SET
 c.`PreuTotal` = cdt.`cdsumPreu`,
 c.`NumeroProductes` = cdt.`cdNumProd`
 WHERE c.`IdComanda` = cdt.`IdComanda`;
-
-
-
-
-Select cd.IdProducte, p.nom, l.nom, count(cd.IdProducte) from Pizzeria.ComandaDetall cd, Pizzeria.Producte p, Pizzeria.Comanda c, Pizzeria.Client cl
-where p.IdProducte = cd.IdProducte and p.IdCategoria = 1 
-Group by cd.IdProducte
-;
-
 
 
 
