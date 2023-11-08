@@ -1,6 +1,8 @@
-DROP DATABASE `culampolla`;
-CREATE DATABASE `culampolla`;
+DROP DATABASE IF EXISTS `culampolla`;
+CREATE DATABASE IF NOT EXISTS `culampolla`;
+USE `culampolla`;
 
+DROP TABLE IF EXISTS `Proveidor`;
 CREATE TABLE `culampolla`.`Proveidor` (
   `IdProveidor` INT NOT NULL AUTO_INCREMENT,
   `IdAddress` INT NULL,
@@ -10,7 +12,8 @@ CREATE TABLE `culampolla`.`Proveidor` (
   `NIF` VARCHAR(10) NULL,
   PRIMARY KEY (`IdProveidor`),
   UNIQUE INDEX `IdProveidor_UNIQUE` (`IdProveidor` ASC) VISIBLE);
-  
+
+  DROP TABLE IF EXISTS `Ciutats`;
   CREATE TABLE `culampolla`.`Ciutats` (
   `IdCiutat` INT NOT NULL AUTO_INCREMENT,
   `IdPais` INT NOT NULL,
@@ -18,12 +21,14 @@ CREATE TABLE `culampolla`.`Proveidor` (
   PRIMARY KEY (`IdCiutat`),
   UNIQUE INDEX `IdCiutat_UNIQUE` (`IdCiutat` ASC) VISIBLE);
   
+  DROP TABLE IF EXISTS `Paisos`;
   CREATE TABLE `culampolla`.`Paisos` (
   `IdPais` INT NOT NULL AUTO_INCREMENT,
   `NomPais` VARCHAR(255) NULL,
   PRIMARY KEY (`IdPais`),
   UNIQUE INDEX `IdPais_UNIQUE` (`IdPais` ASC) VISIBLE);
 
+  DROP TABLE IF EXISTS `Address`;
   CREATE TABLE `culampolla`.`Address` (
   `IdAddress` INT NOT NULL AUTO_INCREMENT,
   `Carrer` VARCHAR(100) NULL,
@@ -35,7 +40,8 @@ CREATE TABLE `culampolla`.`Proveidor` (
   PRIMARY KEY (`IdAddress`),
   UNIQUE INDEX `IdAddress_UNIQUE` (`IdAddress` ASC) VISIBLE);
 
- CREATE TABLE `culampolla`.`Ulleres` (
+  DROP TABLE IF EXISTS `Ulleres`;
+  CREATE TABLE `culampolla`.`Ulleres` (
   `IdUlleres` INT NOT NULL AUTO_INCREMENT,
   `Marca` VARCHAR(150) NULL,
   `IdTipusMontura` INT NOT NULL,
@@ -45,13 +51,15 @@ CREATE TABLE `culampolla`.`Proveidor` (
   PRIMARY KEY (`IdUlleres`),
   UNIQUE INDEX `IdUlleres_UNIQUE` (`IdUlleres` ASC) VISIBLE);
  
- CREATE TABLE `culampolla`.`Venedors` (
+  DROP TABLE IF EXISTS `Venedors`;
+  CREATE TABLE `culampolla`.`Venedors` (
   `IdVenedor` INT NOT NULL AUTO_INCREMENT,
   `NomVenedor` VARCHAR(255) NULL,
   PRIMARY KEY (`IdVenedor`),
   UNIQUE INDEX `IdVenedor_UNIQUE` (`IdVenedor` ASC) VISIBLE);
 
- CREATE TABLE `culampolla`.`Venda` (
+  DROP TABLE IF EXISTS `Venda`;
+  CREATE TABLE `culampolla`.`Venda` (
   `IdVenda` INT NOT NULL AUTO_INCREMENT,
   `IdVenedor` INT NOT NULL,
   `IdClient` INT NULL,
@@ -60,7 +68,8 @@ CREATE TABLE `culampolla`.`Proveidor` (
   PRIMARY KEY (`IdVenda`),
   UNIQUE INDEX `IdVenda_UNIQUE` (`IdVenda` ASC) VISIBLE);
 
- CREATE TABLE `culampolla`.`VendaDetall` (
+  DROP TABLE IF EXISTS `VendaDetall`;
+  CREATE TABLE `culampolla`.`VendaDetall` (
   `IdDetall` INT NOT NULL AUTO_INCREMENT,
   `IdVenda` INT NOT NULL,
   `IdUlleres` INT NOT NULL,
@@ -73,6 +82,7 @@ CREATE TABLE `culampolla`.`Proveidor` (
   UNIQUE INDEX `IdDetall_UNIQUE` (`IdDetall` ASC) VISIBLE);
 
 
+  DROP TABLE IF EXISTS `Clients`;
   CREATE TABLE `culampolla`.`Clients` (
   `IdClient` INT NOT NULL AUTO_INCREMENT,
   `Nom` VARCHAR(255) NULL,
