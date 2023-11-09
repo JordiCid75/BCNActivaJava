@@ -1,8 +1,7 @@
 package TareaS105.N1Exercici1;
 
-import java.io.IOException;
-import java.nio.file.*;
-import java.nio.file.attribute.BasicFileAttributes;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 public class main {
 
