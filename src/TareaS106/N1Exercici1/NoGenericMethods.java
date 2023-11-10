@@ -24,7 +24,6 @@ public class NoGenericMethods {
 		this.obj3 = obj3;
 	}
 	public NoGenericMethods(String obj1, String obj2, String obj3) {
-		super();
 		this.obj1 = obj1;
 		this.obj2 = obj2;
 		this.obj3 = obj3;
