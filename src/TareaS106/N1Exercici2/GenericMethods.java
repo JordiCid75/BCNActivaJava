@@ -1,8 +1,8 @@
 package TareaS106.N1Exercici2;
 
-public class GenericMethods<T, T2, T3> {
+public class GenericMethods {
 
-	public void escriureTipus(T o1, T2 o2, T3 o3) {
+	public <T> void escriureTipus(T o1, T o2, T o3) {
 		System.out.println(o1.toString());
 		System.out.println(o2.toString());
 		System.out.println(o3.toString());

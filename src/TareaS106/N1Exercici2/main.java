@@ -5,7 +5,7 @@ public class main {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 
-		GenericMethods<Persona, String, Number> g = new GenericMethods<Persona, String, Number>();
+		GenericMethods g = new GenericMethods();
 		
 		Persona p = new Persona();
 		
@@ -15,7 +15,7 @@ public class main {
 		
 		g.escriureTipus(p, "prova", 56);
 
-		GenericMethods<String, Integer, Persona> g2 = new GenericMethods<String, Integer, Persona>();
+		GenericMethods g2 = new GenericMethods();
 		
 		
 		
