@@ -36,9 +36,7 @@ select p.* from persona p left join asignatura a on a.id_profesor = p.id where a
 select a.* from asignatura a left join persona p on a.id_profesor = p.id where a.id_profesor is null;
 
 /*SQL #6*/
-select d.id, d.nombre from profesor p
-inner join departamento d on d.id = p.id_departamento
-left join asignatura a on a.id_profesor = p.id_profesor where a.id is null group by d.id, d.nombre;
+select d.id, d.nombre from profesor p inner join departamento d on d.id = p.id_departamento left join asignatura a on a.id_profesor = p.id_profesor where a.id is null group by d.id, d.nombre;
 
 /*Consultas resumen*/
 /*SQL #1*/
