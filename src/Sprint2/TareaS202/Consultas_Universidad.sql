@@ -46,11 +46,11 @@ select count(*) from persona where tipo = "Alumno";
 /*SQL #2*/
 select count(*) from persona where tipo = "Alumno" and year(fecha_nacimiento) = 1999;
 /*SQL #3*/
-select d.nombre, count(p.id_profesor) as numProfesores from profesor p inner join departamento d on d.id = p.id_departamento group by d.nombre order by numProfesores;
+select d.nombre, count(p.id_profesor) as numProfesores from profesor p inner join departamento d on d.id = p.id_departamento group by d.nombre order by numProfesores DESC;
 /*SQL #4*/
 select d.nombre, count(p.id_profesor) as numProfesores from profesor p right join departamento d on d.id = p.id_departamento group by d.nombre order by numProfesores;
 /*SQL #5*/
-select g.nombre, count(a.id) as numAsignaturas from grado g left join asignatura a on a.id_grado = g.id group by g.nombre order by numAsignaturas;
+select g.nombre, count(a.id) as numAsignaturas from grado g left join asignatura a on a.id_grado = g.id group by g.nombre order by numAsignaturas DESC;
 /*SQL #6*/
 select g.nombre, count(a.id) as numAsignaturas from grado g left join asignatura a on a.id_grado = g.id group by g.nombre having count(a.id) > 40 order by numAsignaturas;
 /*SQL #7*/
@@ -58,9 +58,8 @@ select g.nombre, a.tipo, sum(a.creditos) as SumaCreditos from grado g inner join
 /*SQL #8*/
 select c.anyo_inicio, count(asma.id_alumno) as NumeroAlumnos from curso_escolar c left join alumno_se_matricula_asignatura asma on asma.id_curso_escolar = c.id group by c.anyo_inicio;
 /*SQL #9*/
-select pe.id, pe.nombre, pe.apellido1, pe.apellido2, count(a.id) as NumAsignaturas from persona pe left join asignatura a on a.id_profesor = pe.id where pe.tipo = "Profesor" group by pe.id, pe.nombre, pe.apellido1, pe.apellido2 order by NumAsignaturas;
+select pe.id, pe.nombre, pe.apellido1, pe.apellido2, count(a.id) as NumAsignaturas from persona pe left join asignatura a on a.id_profesor = pe.id where pe.tipo = "Profesor" group by pe.id, pe.nombre, pe.apellido1, pe.apellido2 order by NumAsignaturas DESC;
 /*SQL #10*/
 select pe.* from persona pe where pe.fecha_nacimiento = (select max(fecha_nacimiento) from persona where tipo = "Alumno") and pe.tipo = "Alumno";
 /*SQL #11*/
-select pe.id, pe.nombre, pe.apellido1, pe.apellido2, count(a.id) as NumAsignaturas from persona pe left join asignatura a on a.id_profesor = pe.id where pe.tipo = "Profesor" group by pe.id, pe.nombre, pe.apellido1, pe.apellido2 having count(a.id) = 0 order by NumAsignaturas;
-
+select pe.id, pe.nombre, pe.apellido1, pe.apellido2, d.nombre as NombreDepartamento from persona pe left join profesor pr on pr.id_profesor = pe.id left join asignatura a on a.id_profesor = pe.id left join departamento d on d.id = pr.id_departamento where pe.tipo = "Profesor" group by pe.id, pe.nombre, pe.apellido1, pe.apellido2 having count(a.id) = 0 order by NombreDepartamento;

@@ -52,7 +52,7 @@ select p.nombre, p.precio, f.nombre from producto p inner join fabricante f on p
 /*SQL #26*/
 select p.* from producto p inner join fabricante f on p.codigo_fabricante = f.codigo where f.nombre = "Lenovo";
 /*SQL #27*/
-select p.* from producto p inner join fabricante f on p.codigo_fabricante = f.codigo where f.nombre = "Lenovo" and p.precio > 200;
+select p.* from producto p inner join fabricante f on p.codigo_fabricante = f.codigo where f.nombre = "Crucial" and p.precio > 200;
 /*SQL #28*/
 select p.* from producto p inner join fabricante f on p.codigo_fabricante = f.codigo where f.nombre = "Asus" or f.nombre = "Hewlett-Packard" or f.nombre = "Seagate";
 /*SQL #29*/
