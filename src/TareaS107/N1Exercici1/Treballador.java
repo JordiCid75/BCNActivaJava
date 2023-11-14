@@ -5,6 +5,11 @@ public class Treballador {
 	String cognom;
 	double preuHora;
 	
+	public Treballador(String pnom, String pcognom, double ppreuHora) {
+		nom = pnom;
+		cognom = pcognom;
+		preuHora = ppreuHora;
+	}
 	public double calcularSou(int horasTreballades)
 	{
 		return horasTreballades * preuHora;
