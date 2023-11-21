@@ -1,3 +1,5 @@
+use pizzeria;
+
 db.createCollection('Cliente', {
   validator: {
     $jsonSchema: {
@@ -56,6 +58,12 @@ db.createCollection('Comanda', {
         },
         IdBotiga: {
           bsonType: 'objectId'
+        },
+        idEmpleat: {
+          bsonType: 'objectId'
+        },
+        DataLliurament: {
+          bsonType: 'date'
         }
       }
     }
@@ -83,7 +91,7 @@ db.createCollection('Producte', {
           bsonType: 'objectId'
         },
         TipusProducte: {
-          enum:
+          enum: ["Beguda", "Hamburguesa", "Pizza"]
         }
       }
     }
@@ -166,8 +174,25 @@ db.createCollection('Provincia', {
     }
   }
 });
-
-
+db.createCollection('Empleat', {
+  validator: {
+    $jsonSchema: {
+      bsonType: 'object',
+      title: 'Empleat',
+      properties: {
+        Nom: {
+          bsonType: 'string'
+        },
+        idBotiga: {
+          bsonType: 'objectId'
+        },
+        TipusEmpleat: {
+          enum: ["Cuiner", "Repartidor"]
+        }
+      }
+    }
+  }
+});
 
 
 var pr = db.Provincia.insertOne({
@@ -201,25 +226,85 @@ var tipCom = db.TipusComanda.insertOne({
   Nom: 'Recollida a tenda'
 });
 
-var cat = db.Categoria.insertOne({
-  Nom: 'Pizza'
+var catCalzone = db.Categoria.insertOne({
+  Nom: 'Calzone'
+});
+var catFina = db.Categoria.insertOne({
+  Nom: 'Fina'
+});
+var catRoller = db.Categoria.insertOne({
+  Nom: 'Roller'
 });
 
 
-var prod = db.Producte.insertOne({
-  Nom: 'Producto 1',
-  Descripcio: 'Descripción del producto 1',
+var prodBeg1 = db.Producte.insertOne({
+  Nom: 'Beguda 1',
+  Descripcio: 'Descripción de Beguda 1',
   Preu: 19.99,
-  idCategoria: cat.insertedId, 
-  TipusProducte: 'Tipo 1'
+  TipusProducte: 'Beguda'
+});
+var prodBeg2 = db.Producte.insertOne({
+  Nom: 'Beguda 2',
+  Descripcio: 'Descripción de Beguda 2',
+  Preu: 19.99,
+  TipusProducte: 'Beguda'
+});
+var prodPzCalzone = db.Producte.insertOne({
+  Nom: 'Pizza Calzone',
+  Descripcio: 'Descripción de Pizza Calzone',
+  Preu: 30.99,
+  idCategoria: catCalzone.insertedId, 
+  TipusProducte: 'Pizza'
+});
+var prodPzFina = db.Producte.insertOne({
+  Nom: 'Pizza Fina',
+  Descripcio: 'Descripción de Pizza Fina',
+  Preu: 20.99,
+  idCategoria: catFina.insertedId, 
+  TipusProducte: 'Pizza'
+});
+var prodPzRoller = db.Producte.insertOne({
+  Nom: 'Pizza Roller',
+  Descripcio: 'Descripción de Pizza Roller',
+  Preu: 25.99,
+  idCategoria: catRoller.insertedId, 
+  TipusProducte: 'Pizza'
+});
+
+
+
+
+var empCuiner = db.Empleat.insertOne({
+  Nom: 'Empleado Cuiner',
+  idBotiga: bot.insertedId, 
+  TipusEmpleat: 'Cuiner'
+});
+
+var empRep = db.Empleat.insertOne({
+  Nom: 'Empleado Repartidor',
+  idBotiga: bot.insertedId, 
+  TipusEmpleat: 'Repartidor'
+});
+
+
+db.Comanda.insertOne({
+  idCliente: cl.insertedId, 
+  DataHora: new Date(),
+  idTipusComanda: tipCom.insertedId, 
+  Productes: [prodBeg1.insertedId, prodPzFina.insertedId], 
+  PreuTotal: 50.99,
+  idEmpleat: empRep.insertedId,
+  DataLliurament: new Date(),
+  IdBotiga: bot.insertedId 
 });
 
 db.Comanda.insertOne({
   idCliente: cl.insertedId, 
   DataHora: new Date(),
   idTipusComanda: tipCom.insertedId, 
-  Productes: [prod.insertedId], 
+  Productes: [prodBeg2.insertedId, prodPzCalzone.insertedId, prodBeg1.insertedId, prodPzRoller.insertedId, prodPzFina.insertedId], 
   PreuTotal: 50.99,
+  idEmpleat: empRep.insertedId,
+  DataLliurament: new Date(),
   IdBotiga: bot.insertedId 
 });
-
