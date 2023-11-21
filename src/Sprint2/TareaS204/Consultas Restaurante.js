@@ -28,7 +28,8 @@ db.Restaurante.find({}).sort({cuisine:1,borough:-1});
 db.Restaurante.find({"address.street":{$exists:false}});
 db.Restaurante.find({"address.coord":{$type:"double"}});
 db.Restaurante.find({"grades.score": {$mod:[7,0]}},{restaurant_id:1, name:1, grades:1});
-db.Restaurante.find({name:{$regex: /Mad/}},{name:1, borough:1, "address.coord":1, cuisine:1});
+db.Restaurante.find({name:{$regex: /mon/}},{name:1, borough:1, "address.coord":1, cuisine:1});
+db.Restaurante.find({name:{$regex: /^Mad/}},{name:1, borough:1, "address.coord":1, cuisine:1});
 
 
 
