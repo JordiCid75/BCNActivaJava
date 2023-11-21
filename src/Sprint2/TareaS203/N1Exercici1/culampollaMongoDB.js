@@ -157,7 +157,7 @@ db.createCollection('Venedor', {
 
 
 // ulleres
-db.ulleres.insertOne({
+var ulleres = db.ulleres.insertOne({
   marca: "Marca1",
   GradVE: 2.5,
   GradVD: 1.5,
@@ -169,10 +169,11 @@ db.ulleres.insertOne({
 });
 
 // Venedor
-db.Venedor.insertOne({
+var v1 = db.Venedor.insertOne({
   nom: "Vendedor1"
 });
 
+var ullerainsertada = ulleres.insertedId;
 // Proveedor
 db.Proveedor.insertOne({
   nombre: "Proveedor1",
@@ -188,46 +189,33 @@ db.Proveedor.insertOne({
   telefon: "123456789",
   fax: "987654321",
   NIF: "A12345678",
-  id_ullera: ObjectId("5fbc39be2a7a3b9b1c996db9")
+  id_ullera: [ullerainsertada]
 });
 
 // Clientes
-db.Clientes.insertOne({
+var c1 = db.Clientes.insertOne({
   nom: "Cliente1",
   adressa: "Calle Cliente",
   telefon: "987654321",
   email: "cliente1@example.com",
   dataRegistre: new Date(),
-  ClientRecomanat: ObjectId("5fbc39be2a7a3b9b1c996dbe")
 });
+var c1ins = c1.insertedId;
+var c2 = db.Clientes.insertOne({
+  nom: "Cliente1",
+  adressa: "Calle Cliente",
+  telefon: "987654321",
+  email: "cliente1@example.com",
+  dataRegistre: new Date(),
+  ClientRecomanat: c1ins
+});
+
 
 // Venda
+var v1ins = v1.insertedId;
 db.Venda.insertOne({
-  id_ullera: [ObjectId("5fbc39be2a7a3b9b1c996db9")],
-  idClient: ObjectId("5fbc39be2a7a3b9b1c996dbe"),
-  idVenedor: ObjectId("5fbc39be2a7a3b9b1c996dbd")
+  id_ullera: [ullerainsertada],
+  idClient: c1ins,
+  idVenedor: v1ins
 });
-
-
-var v1 = db.Venedor.find({},{_id:1});
-var c1
-db.Venda.insertOne({id_ullera: [
-	db.ulleres.findOne({},{_id:1})
-	],idClient: 
-	db.Clientes.find({nom:"Cliente1"},{_id:1})
-	,idVenedor: 
-	db.Venedor.find({nom:"Vendedor1"},{_id:1})
-	});
-
-
-db.Venda.aggregate({
-   $lookup:
-     {
-       from: Venedor,
-       localField: IdVenedor,
-       foreignField: _id,
-       as: IdVenedor
-     }
-}
-);
 
