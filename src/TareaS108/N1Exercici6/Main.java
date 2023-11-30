@@ -13,8 +13,7 @@ public class Main {
 				"abctststr",
 				"456",
 				"ghi");
-		l.sort(Comparator.comparing(String::length));
-		l.forEach(System.out::println);
+		l.stream().sorted(Comparator.comparing(String::length)).forEach(System.out::println);
 	}
 
 }
