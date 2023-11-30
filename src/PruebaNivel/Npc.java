@@ -1,24 +1,45 @@
 package PruebaNivel;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 
 public abstract class Npc {
 
-	ArrayList<Item> listaItemVenta = new ArrayList<Item>();
-	ArrayList<Comprador> invCompradores = new ArrayList<Comprador>();
-	int itemsMaximos;
-	double impuesto;
-	String nombre;
-	int deterioro;
-	String ciudad;
-	//l.sort(Comparator.comparing(String::length).reversed());
-	public void addSellItem(Item i) throws InventarioLleno {
-		if (listaItemVenta.size() >= itemsMaximos) {
-			throw new InventarioLleno("Inventario lleno!- El vendedor no puede comprar el ítem");
-		}
-		listaItemVenta.add(i);
+	protected ArrayList<Item> listaItemVenta = new ArrayList<Item>();
+	protected String nombre;
+	protected Ciudad ciudad;
+	
+	
+	public ArrayList<Item> getListaItemVenta() {
+		return listaItemVenta;
 	}
+
+	public void setListaItemVenta(ArrayList<Item> listaItemVenta) {
+		this.listaItemVenta = listaItemVenta;
+	}
+
+	public String getNombre() {
+		return nombre;
+	}
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
+	public Ciudad getCiudad() {
+		return ciudad;
+	}
+
+	public void setCiudad(Ciudad ciudad) {
+		this.ciudad = ciudad;
+	}
+
+	
+	@Override
+	public String toString() {
+		return "Npc [nombre=" + nombre + ", ciudad=" + ciudad.getNombre() + "]";
+	}
+
+	public abstract void addSellItem(Item i) throws InventarioLleno;
 
 	public static Npc crear(String tipo) throws TipoNpcNoValido {
 		switch (tipo) {
@@ -34,5 +55,10 @@ public abstract class Npc {
 		default:
 			throw new TipoNpcNoValido("Tipo no valido: " + tipo);
 		}
+	}
+
+	public void removeItemInventario(Item itemSeleccionado) {
+		// TODO Auto-generated method stub
+		listaItemVenta.remove(itemSeleccionado);
 	}
 }
