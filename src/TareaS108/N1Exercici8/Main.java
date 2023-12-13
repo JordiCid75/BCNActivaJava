@@ -12,6 +12,8 @@ public class Main {
 				return stringBuilder.reverse().toString();
 			}
 		};
+		
+		
 		System.out.println(r.reverse("prueba de reverse"));
 	}
 

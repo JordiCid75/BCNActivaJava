@@ -14,9 +14,7 @@ public class main {
 			lista1.add(i);
 		}
 		System.out.println("lista1:");
-		for (Integer integer : lista1) {
-			System.out.println(integer);
-		}
+		lista1.forEach(System.out::println);
 
 		// nos posicionamos en el ultimo elemento
 		ListIterator<Integer> itr = lista1.listIterator(lista1.size());
@@ -29,13 +27,9 @@ public class main {
 		
 		System.out.println("lista2:");
 		
-		for (Integer integer : lista2) {
-			System.out.println(integer);
-		}
+		lista2.forEach(System.out::println);
 		System.out.println("lista1:");
-		for (Integer integer : lista1) {
-			System.out.println(integer);
-		}
+		lista1.forEach(System.out::println);
 	}
 
 }
