@@ -3,6 +3,7 @@
 	<name>BCNActiva</name>
 	<comment></comment>
 	<projects>
+		<project>Kata</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
