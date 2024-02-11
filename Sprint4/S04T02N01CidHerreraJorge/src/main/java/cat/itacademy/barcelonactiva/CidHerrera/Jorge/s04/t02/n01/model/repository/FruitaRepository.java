@@ -11,7 +11,7 @@ public interface FruitaRepository extends JpaRepository<Fruita, Integer> {
 
 	List<Fruita> findByNomContaining(String nom);
 
-	Optional<Fruita> findByNameIgnoreCase(String nom);
+	Optional<Fruita> findByNomIgnoreCase(String name);
 
-	List<Fruita> findByNameContainingIgnoreCaseOrderById(String nom);
+	List<Fruita> findByNomContainingIgnoreCaseOrderById(String nom);
 }

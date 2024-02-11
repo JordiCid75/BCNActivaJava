@@ -2,6 +2,7 @@ package cat.itacademy.barcelonactiva.CidHerrera.Jorge.s04.t02.n01.model.services
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import cat.itacademy.barcelonactiva.CidHerrera.Jorge.s04.t02.n01.exceptions.FruitaAlreadyExistException;
@@ -11,6 +12,7 @@ import cat.itacademy.barcelonactiva.CidHerrera.Jorge.s04.t02.n01.model.repositor
 
 @Service
 public class FruitaServiceImpl implements IFruitaService {
+	@Autowired
 	private FruitaRepository fruitaRepository;
 
 	@Override
@@ -26,7 +28,7 @@ public class FruitaServiceImpl implements IFruitaService {
 
 	@Override
 	public Fruita createFruita(Fruita fruita) {
-		fruitaRepository.findByNameIgnoreCase(fruita.getNom()).ifPresent(fr -> {
+		fruitaRepository.findByNomIgnoreCase(fruita.getNom()).ifPresent(fr -> {
 			throw new FruitaAlreadyExistException("Already exist fruita with given name:" + fruita.getNom());
 		});
 		return fruitaRepository.save(fruita);
@@ -34,9 +36,9 @@ public class FruitaServiceImpl implements IFruitaService {
 
 	@Override
 	public Fruita updateFruita(int id, Fruita updatedFruita) {
-		if (id == null) {
-			throw new IllegalArgumentException("Fruita ID cannot be null");
-		}
+//		if (id == null) {
+//			throw new IllegalArgumentException("Fruita ID cannot be null");
+//		}
 		Fruita existingFruita = fruitaRepository.findById(id)
 				.orElseThrow(() -> new FruitaNotFoundException("Fruita Not Found with ID: " + id));
 		existingFruita.setNom(updatedFruita.getNom());
