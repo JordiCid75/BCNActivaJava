@@ -20,90 +20,39 @@ import org.springframework.web.bind.annotation.RestController;
 
 import cat.itacademy.barcelonactiva.CidHerrera.Jorge.s04.t02.n01.model.domain.Fruita;
 import cat.itacademy.barcelonactiva.CidHerrera.Jorge.s04.t02.n01.model.repository.FruitaRepository;
+import cat.itacademy.barcelonactiva.CidHerrera.Jorge.s04.t02.n01.model.services.IFruitaService;
 
-//@CrossOrigin(origins = "http://localhost:8081")
 @RestController
-//@RequestMapping("/api")
 public class FruitaController {
 
 	@Autowired
-	FruitaRepository fruitaRepository;
+	private IFruitaService fruitaService;
 
 	@GetMapping("/fruita/getAll")
 	public ResponseEntity<List<Fruita>> getAllFruites(@RequestParam(required = false) String nom) {
-		try {
-			List<Fruita> fruites = new ArrayList<Fruita>();
-
-			if (nom == null)
-				fruitaRepository.findAll().forEach(fruites::add);
-			else
-				fruitaRepository.findByNomContaining(nom).forEach(fruites::add);
-
-			if (fruites.isEmpty()) {
-				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-			}
-
-			return new ResponseEntity<>(fruites, HttpStatus.OK);
-		} catch (Exception e) {
-			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-		}
+        return ResponseEntity.ok().body(fruitaService.getAllFruites());
 	}
 
 	@GetMapping("/fruita/getOne/{id}")
 	public ResponseEntity<Fruita> getFruitaById(@PathVariable("id") int id) {
-		Optional<Fruita> fruitaData = fruitaRepository.findById(id);
-
-		if (fruitaData.isPresent()) {
-			return new ResponseEntity<>(fruitaData.get(), HttpStatus.OK);
-		} else {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		}
+		return ResponseEntity.ok().body(fruitaService.getFruitaById(id));
 	}
 
 	@PostMapping("/fruita/add")
-	public ResponseEntity<Fruita> createFruita(@RequestBody Fruita fruita) {
-		try {
-			Fruita _fruita = fruitaRepository
-					.save(new Fruita(fruita.getNom(),fruita.getQuantitatQuilos()));
-			return new ResponseEntity<>(_fruita, HttpStatus.CREATED);
-		} catch (Exception e) {
-			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-		}
+	public ResponseEntity<Fruita> createFruita(@RequestBody Fruita fruitaDto) {
+		Fruita newFruita = fruitaService.createFruita(fruitaDto);
+        return new ResponseEntity<>(newFruita, HttpStatus.CREATED);
 	}
 
 	@PutMapping("/fruita/update/{id}")
-	public ResponseEntity<Fruita> updateFruita(@PathVariable("id") int id, @RequestBody Fruita fruita) {
-		Optional<Fruita> fruitaData = fruitaRepository.findById(id);
-
-		if (fruitaData.isPresent()) {
-			Fruita _fruita = fruitaData.get();
-			_fruita.setNom(fruita.getNom());
-			_fruita.setQuantitatQuilos(fruita.getQuantitatQuilos());
-			return new ResponseEntity<>(fruitaRepository.save(_fruita), HttpStatus.OK);
-		} else {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		}
+	public ResponseEntity<Fruita> updateFruita(@PathVariable("id") int id, @RequestBody Fruita fruitaDto) {
+		return ResponseEntity.ok().body(fruitaService.updateFruita(id,fruitaDto));
 	}
 
 	@DeleteMapping("/fruita/delete/{id}")
-	public ResponseEntity<HttpStatus> deleteFruita(@PathVariable("id") int id) {
-		try {
-			fruitaRepository.deleteById(id);
-			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-		} catch (Exception e) {
-			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-		}
-	}
-
-	@DeleteMapping("/fruita/deleteAll")
-	public ResponseEntity<HttpStatus> deleteAllFruites() {
-		try {
-			fruitaRepository.deleteAll();
-			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-		} catch (Exception e) {
-			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-		}
-
+	public ResponseEntity<String> deleteFruita(@PathVariable("id") int id) {
+		fruitaService.deleteFruitaById(id);
+        return new ResponseEntity<>(("Fruita deleted successfully- Fruita ID:" + id), HttpStatus.OK);
 	}
 
 }

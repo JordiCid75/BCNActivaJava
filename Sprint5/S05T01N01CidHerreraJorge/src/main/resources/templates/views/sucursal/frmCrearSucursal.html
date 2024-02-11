@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="plantilla/Template :: head">
+</head>
+<body>
+	<header th:replace="plantilla/Template :: header"> </header>
+	<div class="container">
+		<form>
+			<div class="form-group row">
+				<label class="col-md-2" for="NombreSucursal">Nombre Sucursal:</label> 
+				<input type="text" class="form-control form-control-sm col-md-6" id="NombreSucursal"
+					 placeholder="Nombre de Sucursal"> 
+					 <small></small>
+			</div>
+			
+			<button type="submit" class="btn btn-primary">Submit</button>
+		</form>
+	</div>
+	<footer th:replace="plantilla/Template :: footer"> </footer>
+</body>
+</html>
