@@ -43,14 +43,21 @@ CREATE TABLE `culampolla`.`Proveidor` (
   DROP TABLE IF EXISTS `Ulleres`;
   CREATE TABLE `culampolla`.`Ulleres` (
   `IdUlleres` INT NOT NULL AUTO_INCREMENT,
-  `Marca` VARCHAR(150) NULL,
+  `IdMarca` INT NOT NULL,
   `IdTipusMontura` INT NOT NULL,
   `ColorMontura` VARCHAR(100) NULL,
   `Preu` DECIMAL(7,2) NULL,
-  `IdProveidor` INT NOT NULL,
   PRIMARY KEY (`IdUlleres`),
   UNIQUE INDEX `IdUlleres_UNIQUE` (`IdUlleres` ASC) VISIBLE);
  
+  DROP TABLE IF EXISTS `Marca`;
+  CREATE TABLE `culampolla`.`Marca` (
+  `IdMarca` INT NOT NULL AUTO_INCREMENT,
+  `NomMarca` VARCHAR(255) NULL,
+  `IdProveidor` INT NOT NULL,
+  PRIMARY KEY (`IdMarca`),
+  UNIQUE INDEX `IdMarca_UNIQUE` (`IdMarca` ASC) VISIBLE);
+
   DROP TABLE IF EXISTS `Venedors`;
   CREATE TABLE `culampolla`.`Venedors` (
   `IdVenedor` INT NOT NULL AUTO_INCREMENT,
@@ -149,18 +156,20 @@ ADD CONSTRAINT `FK_Clients_Address`
   ON UPDATE NO ACTION;
 
 ALTER TABLE `culampolla`.`ulleres` 
-ADD INDEX `FK_Ulleres_TipusMontura_idx` (`idTipusMontura` ASC) VISIBLE,
-ADD INDEX `FK_Ulleres_Proveidor_idx` (`IdProveidor` ASC) VISIBLE;
+ADD INDEX `FK_Ulleres_TipusMontura_idx` (`idTipusMontura` ASC) VISIBLE
+;
+ALTER TABLE `culampolla`.`Marca` 
+ADD INDEX `FK_Marca_Proveidor_idx` (`IdProveidor` ASC) VISIBLE,
+ADD CONSTRAINT `FK_Ulleres_Proveidor`
+  FOREIGN KEY (`IdProveidor`)
+  REFERENCES `culampolla`.`Proveidor` (`IdProveidor`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION
 ;
 ALTER TABLE `culampolla`.`ulleres` 
 ADD CONSTRAINT `FK_Ulleres_TipusMontura`
   FOREIGN KEY (`idTipusMontura`)
   REFERENCES `culampolla`.`TipusMontura` (`IdTipusMontura`)
-  ON DELETE NO ACTION
-  ON UPDATE NO ACTION,
-ADD CONSTRAINT `FK_Ulleres_Proveidor`
-  FOREIGN KEY (`IdProveidor`)
-  REFERENCES `culampolla`.`Proveidor` (`IdProveidor`)
   ON DELETE NO ACTION
   ON UPDATE NO ACTION;
 
@@ -267,18 +276,34 @@ INSERT INTO `culampolla`.`Clients`
 VALUES
 ("Client2", 1, "444444", "emailclient2@client2.com", sysdate(),null);
 
-INSERT INTO `culampolla`.`ulleres`
-(`Marca`, `IdTipusMontura`, `ColorMontura`, `Preu`, `IdProveidor`)
+INSERT INTO `culampolla`.`Marca`
+(`NomMarca`, `IdProveidor`)
 VALUES
-("Marca1", 1, "Blau", 150.65, 1);
-INSERT INTO `culampolla`.`ulleres`
-(`Marca`, `IdTipusMontura`, `ColorMontura`, `Preu`, `IdProveidor`)
+("Marca1", 1);
+
+INSERT INTO `culampolla`.`Marca`
+(`NomMarca`, `IdProveidor`)
 VALUES
-("Marca2", 1, "Negre", 100.65, 1);
-INSERT INTO `culampolla`.`ulleres`
-(`Marca`, `IdTipusMontura`, `ColorMontura`, `Preu`, `IdProveidor`)
+("Marca2", 1);
+
+INSERT INTO `culampolla`.`Marca`
+(`NomMarca`, `IdProveidor`)
 VALUES
-("Marca3", 2, "Vermella", 56.65, 2);
+("Marca3", 2);
+
+INSERT INTO `culampolla`.`ulleres`
+(`IdMarca`, `IdTipusMontura`, `ColorMontura`, `Preu`)
+VALUES
+(1, 1, "Blau", 150.65);
+INSERT INTO `culampolla`.`ulleres`
+(`IdMarca`, `IdTipusMontura`, `ColorMontura`, `Preu`)
+VALUES
+(2, 1, "Negre", 100.65);
+INSERT INTO `culampolla`.`ulleres`
+(`IdMarca`, `IdTipusMontura`, `ColorMontura`, `Preu`)
+VALUES
+(3, 2, "Vermella", 56.65);
+
 INSERT INTO `culampolla`.`Venda`
 (`IdVenedor`, `IdClient`, `DataVenda`, `PreuTotal`)
 VALUES
