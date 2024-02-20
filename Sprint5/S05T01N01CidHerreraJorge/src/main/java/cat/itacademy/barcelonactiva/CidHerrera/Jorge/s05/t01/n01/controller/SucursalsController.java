@@ -16,12 +16,12 @@ import cat.itacademy.barcelonactiva.CidHerrera.Jorge.s05.t01.n01.model.dto.Sucur
 import cat.itacademy.barcelonactiva.CidHerrera.Jorge.s05.t01.n01.model.services.ISucursalService;
 
 @Controller
-@RequestMapping("/views/sucursal")
+@RequestMapping({"/views/sucursal","/sucursal"})
 public class SucursalsController {
 
 	@Autowired
 	private ISucursalService sucursalService;
-	@GetMapping("/")
+	@GetMapping({"/","/getAll"})
 	public String getSucursales(Model model)
 	{
 		List<SucursalDTO> listadoSucursales = sucursalService.getAllSucursales();
@@ -30,7 +30,7 @@ public class SucursalsController {
 		return "/views/sucursal/ListarSucursal";
 	}
 	
-	@GetMapping("/create")
+	@GetMapping({"/create","/add"})
 	public String createSucursal(Model model)
 	{
 		SucursalDTO sucursal = new SucursalDTO(new Sucursal());
@@ -45,7 +45,7 @@ public class SucursalsController {
 		
 		return "redirect:/views/sucursal/";
 	}
-	@GetMapping("/edit/{id}")
+	@GetMapping({"/edit/{id}","/update/{id}","/getOne/{id}"})
 	public String editSucursal(@PathVariable("id") int idSucursal, Model model)
 	{
 		SucursalDTO sucursal = sucursalService.getSucursalById(idSucursal);
