@@ -5,16 +5,29 @@
 <body>
 	<header th:replace="plantilla/Template :: header"> </header>
 	<div class="container">
-		<form>
-			<div class="form-group row">
-				<label class="col-md-2" for="NombreSucursal">Nombre Sucursal:</label> 
-				<input type="text" class="form-control form-control-sm col-md-6" id="NombreSucursal"
-					 placeholder="Nombre de Sucursal"> 
-					 <small></small>
+		<div class="card bg-light">
+			<div class="card-header bg-dark text-white"></div>
+			<div class="card-body">
+				<form th:action="@{/views/sucursal/save}" th:object="${sucursalDTO.sucursal}" method="post">
+					<div class="form-group row">
+						<input type="hidden" th:field="*{pk_sucursalID}">
+							<label class="col-md-2" for="NombreSucursal">Nombre
+							Sucursal:</label> 
+							<input type="text" th:field="*{nameSucursal}"
+							class="form-control form-control-sm col-md-8" id="NombreSucursal"
+							placeholder="Nombre de Sucursal"> <small></small>
+					</div>
+					<div class="form-group row">
+						<label class="col-md-2" for="PaisSucursal">Pais Sucursal:</label>
+						<input type="text" th:field="*{paisSucursal}" class="form-control form-control-sm col-md-8"
+							id="PaisSucursal" placeholder="País de la Sucursal"> <small></small>
+					</div>
+					<div class="card-footer bg-dark">
+						<input type="submit" class="btn btn-primary btn-sm" value="Guardar"/>
+					</div>
+				</form>
 			</div>
-			
-			<button type="submit" class="btn btn-primary">Submit</button>
-		</form>
+		</div>
 	</div>
 	<footer th:replace="plantilla/Template :: footer"> </footer>
 </body>

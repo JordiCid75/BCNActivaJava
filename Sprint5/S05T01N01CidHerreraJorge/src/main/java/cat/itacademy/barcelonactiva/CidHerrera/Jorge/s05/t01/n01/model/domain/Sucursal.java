@@ -18,6 +18,7 @@ public class Sucursal {
 		nameSucursal = name;
 		paisSucursal = pais;
 	}
+	
 	public Sucursal() {
 	}
 
