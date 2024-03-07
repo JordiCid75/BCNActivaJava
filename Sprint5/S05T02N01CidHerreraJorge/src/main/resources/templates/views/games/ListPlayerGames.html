@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="plantilla/Template :: head">
+</head>
+<body>
+	<header th:replace="plantilla/Template :: header"> </header>
+	<div class="container">
+		<h1 th:text="${titulo}"></h1>
+	</div>
+	<div class="container">
+		<h2 th:text="${statusMessage}"></h2>
+	</div>
+	<div class="container">
+		<a class="btn btn-primary btn-sm" th:href="@{/players/}+${playerId}+@{/game}"
+			th:text="'Nuevo Juego'" title="Nueva Tirada"></a>
+		<a class="btn btn-danger btn-sm" th:href="@{/players/}+${playerId}+@{/delete}"
+			th:text="'Ocultar Juegos'" title="Ocultar Juegos"></a>
+		<table class="table">
+			<thead>
+				<tr>
+					<th scope="col">Id</th>
+					<th scope="col">Value D1</th>
+					<th scope="col">Value D2</th>
+					<th scope="col">Result</th>
+					<th scope="col">Exit Percentage</th>
+					<th scope="col">play Win</th>
+					<th scope="col">Editar</th>
+					<th scope="col">Eliminar</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="gs:${games}">
+					<th scope="row" th:text="${gs.getGame().getId()}"></th>
+					<td th:text="${gs.getGame().getValueD1()}"></td>
+					<td th:text="${gs.getGame().getValueD2()}"></td>
+					<td th:text="${gs.getResult()}"></td>
+					<td th:text="${gs.getPercentageWin()}"></td>
+					<td th:text="${gs.isGameWin()}"></td>
+<!-- 					<td><a class="btn btn-success btn-sm" -->
+<!-- 						th:href="@{/views/sucursal/edit/} + ${sc.sucursal.getPk_sucursalID()}" -->
+<!-- 						th:text="Editar" title="Editar Sucursal"></a></td> -->
+<!-- 					<td><a class="btn btn-danger btn-sm" -->
+<!-- 						th:href="@{/views/sucursal/delete/} + ${sc.sucursal.getPk_sucursalID()}" -->
+<!-- 						th:text="Borrar" title="Borrar Sucursal" -->
+<!-- 						onclick="return confirm('Está seguro de eliminar el Registro?');"></a> -->
+<!-- 					</td> -->
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+	<footer th:replace="plantilla/Template :: footer"> </footer>
+</body>
+</html>

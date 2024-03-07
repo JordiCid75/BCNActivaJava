@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="plantilla/Template :: head">
+</head>
+<body>
+	<header th:replace="plantilla/Template :: header"> </header>
+	<div class="container">
+		<h1 th:text="${titulo}"></h1>
+	</div>
+	<div class="container">
+		<h2 th:text="${statusMessage}"></h2>
+	</div>
+	<div class="container">
+		<div class="card bg-light">
+			<div class="card-header bg-dark text-white"></div>
+			<div class="card-body">
+				<form th:action="@{/player/update}" th:object="${playerDTO.player}" method="post">
+					<div class="form-group row">
+						<input type="hidden" th:field="*{pk_playerID}">
+							<label class="col-md-2" for="PlayerNombre">Nombre Jugador:</label> 
+							<input type="text" th:field="*{playerName}"
+							class="form-control form-control-sm col-md-8" id="NombreJugador"
+							placeholder="Nombre del Jugador"> <small></small>
+					</div>
+					<div class="card-footer bg-dark">
+						<input type="submit" class="btn btn-primary btn-sm" value="Guardar"/>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<footer th:replace="plantilla/Template :: footer"> </footer>
+</body>
+</html>

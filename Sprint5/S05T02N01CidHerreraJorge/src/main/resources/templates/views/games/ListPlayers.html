@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="plantilla/Template :: head">
+</head>
+<body>
+	<header th:replace="plantilla/Template :: header"> </header>
+	<div class="container">
+		<h1 th:text="${titulo}"></h1>
+	</div>
+	<div class="container">
+		<h2 th:text="${statusMessage}"></h2>
+	</div>
+	<div class="container">
+		<a class="btn btn-primary btn-sm" th:href="@{/player/}"
+			th:text="'Nuevo Jugador'" title="Nuevo Jugador"></a>
+		<table class="table">
+			<thead>
+				<tr>
+					<th scope="col">Id</th>
+					<th scope="col">Nombre Jugador</th>
+					<th scope="col">Fecha Registro</th>
+					<th scope="col">Media de Acierto</th>
+					<th scope="col">Es Ganador</th>
+					<th scope="col">Es Perdedor</th>
+					<th scope="col">Seleccionar</th>
+					<th scope="col">Editar</th>
+					
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="pl:${players}">
+					<th scope="row" th:text="${pl.getPlayer().getPk_playerID()}"></th>
+					<td th:text="${pl.getPlayer().getPlayerName()}"></td>
+					<td th:text="${pl.getPlayer().getPlayerRegistrationDate()}"></td>
+					<td th:text="${pl.getPercentageAvg()}"></td>
+					<td th:text="${pl.isWinner()}"></td>
+					<td th:text="${pl.isLoser()}"></td>
+					<td><a class="btn btn-success btn-sm"
+						th:href="@{/players/} + ${pl.getPlayer().getPk_playerID()} + @{/games/}"
+						th:text="Seleccionar" title="Seleccionar Jugador"></a></td>
+					<td><a class="btn btn-success btn-sm"
+						th:href="@{/player/} + ${pl.getPlayer().getPk_playerID()}"
+						th:text="Editar" title="Editar Jugador"></a></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+	<footer th:replace="plantilla/Template :: footer"> </footer>
+</body>
+</html>
