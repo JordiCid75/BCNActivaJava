@@ -37,11 +37,18 @@ public class User implements UserDetails {
 	private String password;
 	private String firstname;
 	private String lastname;
-	private String email;
 	@Enumerated(EnumType.STRING)
 	private Role role;
 
-
+@Override
+public String getUsername(){
+	return this.username;
+}
+@Override
+public String getPassword()
+{
+	return this.password;
+}
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		return List.of(new SimpleGrantedAuthority(role.name()));

@@ -1,6 +1,5 @@
 package cat.itacademy.barcelonactiva.cidherrera.jorge.s05.t02.n01.controller;
 
-import cat.itacademy.barcelonactiva.cidherrera.jorge.s05.t02.n01.exceptions.PlayerNameAlreadyExist;
 import cat.itacademy.barcelonactiva.cidherrera.jorge.s05.t02.n01.model.domain.Player;
 import cat.itacademy.barcelonactiva.cidherrera.jorge.s05.t02.n01.model.dto.PlayerDTO;
 import cat.itacademy.barcelonactiva.cidherrera.jorge.s05.t02.n01.model.services.IPlayerService;
@@ -9,8 +8,6 @@ import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -24,15 +21,18 @@ public class PlayerControllerREST {
 
 	@SneakyThrows
 	@PostMapping({"","/"})
-	public ResponseEntity<PlayerDTO> createPlayer(@RequestBody PlayerDTO player) {
-			PlayerDTO newPlayer = playerService.createPlayer(player);
+	public ResponseEntity<PlayerDTO> createPlayer(@RequestBody Player player) {
+			PlayerDTO pl = new PlayerDTO(player);
+			PlayerDTO newPlayer = playerService.createPlayer(pl);
 			return new ResponseEntity<>(newPlayer, HttpStatus.CREATED);
 	}
 
 	@SneakyThrows
 	@PutMapping({"","/"})
-	public ResponseEntity<PlayerDTO> update(@RequestBody PlayerDTO player) {
-		return ResponseEntity.ok().body(playerService.updatePlayer(player));
+	public ResponseEntity<PlayerDTO> update(@RequestBody Player player) {
+		PlayerDTO pl = new PlayerDTO(player);
+
+		return ResponseEntity.ok().body(playerService.updatePlayer(pl));
 	}
 	@GetMapping("/")
 	public ResponseEntity<List<PlayerDTO>> showPlayers() {

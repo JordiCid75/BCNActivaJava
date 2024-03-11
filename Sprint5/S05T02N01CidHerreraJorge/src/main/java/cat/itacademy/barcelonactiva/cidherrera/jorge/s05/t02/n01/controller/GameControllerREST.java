@@ -8,7 +8,6 @@ import cat.itacademy.barcelonactiva.cidherrera.jorge.s05.t02.n01.model.services.
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.HttpStatus;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -27,11 +26,11 @@ public class GameControllerREST {
 	}
 
 	@GetMapping({ "/{id}/games", "/{id}/games/" })
-	public ResponseEntity<List<GameDTO>> showPlayerGames(@PathVariable("id") int idPlayer, Model model) {
+	public ResponseEntity<List<GameDTO>> showPlayerGames(@PathVariable("id") int idPlayer) {
 		return ResponseEntity.ok().body(gameService.getGamesByPlayerId(idPlayer));
 	}
 
-	@GetMapping({ "/{id}/game", "/{id}/game/" })
+	@PutMapping({ "/{id}/game", "/{id}/game/" })
 	public ResponseEntity<GameDTO> newPlayerGame(@PathVariable("id") int idPlayer) {
 		PlayerDTO player = playerService.getPlayerById(idPlayer);
 		Game game = new Game(player.getPlayer());
@@ -42,8 +41,8 @@ public class GameControllerREST {
 		return new ResponseEntity<>(gameDTO, HttpStatus.CREATED);
 	}
 
-	@DeleteMapping({ "/{id}/delete", "/{id}/delete/" })
-	public ResponseEntity<String> deletePlayerGame(@PathVariable("id") int idPlayer, Model model) {
+	@DeleteMapping({ "/{id}/games", "/{id}/games/" })
+	public ResponseEntity<String> deletePlayerGame(@PathVariable("id") int idPlayer) {
 		List<GameDTO> listGamesByPlayer = gameService.getGamesByPlayerId(idPlayer);
 		listGamesByPlayer.forEach((g) -> gameService.deletGameById(g.getGame().getId()));
 		return ResponseEntity.ok().body("Games for id player "+ idPlayer+" properly hided." );

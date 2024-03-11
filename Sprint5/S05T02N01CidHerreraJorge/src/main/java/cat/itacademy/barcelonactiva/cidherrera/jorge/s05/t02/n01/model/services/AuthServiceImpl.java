@@ -43,7 +43,6 @@ public class AuthServiceImpl implements IAuthService {
 				.password(passwordEncoder.encode(request.getPassword()))
 				.firstname(request.getFirstname())
 				.lastname(request.getLastname())
-				.email(request.getEmail())
 				.role(Role.USER)
 				.build();
 		userRepository.save(user);
