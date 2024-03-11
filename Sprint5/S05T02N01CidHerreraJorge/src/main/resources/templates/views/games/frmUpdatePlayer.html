@@ -14,7 +14,7 @@
 		<div class="card bg-light">
 			<div class="card-header bg-dark text-white"></div>
 			<div class="card-body">
-				<form th:action="@{/player/update}" th:object="${playerDTO.player}" method="post">
+				<form th:action="@{/v1/player/update}" th:object="${playerDTO.player}" method="post">
 					<div class="form-group row">
 						<input type="hidden" th:field="*{pk_playerID}">
 							<label class="col-md-2" for="PlayerNombre">Nombre Jugador:</label> 

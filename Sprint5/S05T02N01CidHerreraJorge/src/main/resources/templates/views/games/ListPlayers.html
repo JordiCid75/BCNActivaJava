@@ -11,7 +11,7 @@
 		<h2 th:text="${statusMessage}"></h2>
 	</div>
 	<div class="container">
-		<a class="btn btn-primary btn-sm" th:href="@{/player/}"
+		<a class="btn btn-primary btn-sm" th:href="@{/v1/player/}"
 			th:text="'Nuevo Jugador'" title="Nuevo Jugador"></a>
 		<table class="table">
 			<thead>
@@ -36,10 +36,10 @@
 					<td th:text="${pl.isWinner()}"></td>
 					<td th:text="${pl.isLoser()}"></td>
 					<td><a class="btn btn-success btn-sm"
-						th:href="@{/players/} + ${pl.getPlayer().getPk_playerID()} + @{/games/}"
+						th:href="@{/v1/players/} + ${pl.getPlayer().getPk_playerID()} + @{/games/}"
 						th:text="Seleccionar" title="Seleccionar Jugador"></a></td>
 					<td><a class="btn btn-success btn-sm"
-						th:href="@{/player/} + ${pl.getPlayer().getPk_playerID()}"
+						th:href="@{/v1/player/} + ${pl.getPlayer().getPk_playerID()}"
 						th:text="Editar" title="Editar Jugador"></a></td>
 				</tr>
 			</tbody>

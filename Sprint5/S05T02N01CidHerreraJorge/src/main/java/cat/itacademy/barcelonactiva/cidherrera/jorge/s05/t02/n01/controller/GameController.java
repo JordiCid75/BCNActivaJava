@@ -15,7 +15,7 @@ import cat.itacademy.barcelonactiva.cidherrera.jorge.s05.t02.n01.model.services.
 import cat.itacademy.barcelonactiva.cidherrera.jorge.s05.t02.n01.model.services.IPlayerService;
 
 @Controller
-@RequestMapping("/players")
+@RequestMapping("/v1/players")
 public class GameController {
 
 	private final IGameService gameService;

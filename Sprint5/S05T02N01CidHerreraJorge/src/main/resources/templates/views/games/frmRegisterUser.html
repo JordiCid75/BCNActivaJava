@@ -14,17 +14,19 @@
 		<div class="card bg-light">
 			<div class="card-header bg-dark text-white"></div>
 			<div class="card-body">
-				<form th:action="@{/v1/player/save}" th:object="${playerDTO.player}" method="post">
+				<form th:action="@{/auth/register}" th:object="${user}" method="post">
 					<div class="form-group row">
-						<input type="hidden" th:field="*{pk_playerID}">
-<!-- 						<input type="hidden" th:field="*{playerRegistrationDate}"> -->
-							<label class="col-md-2" for="PlayerNombre">Nombre Jugador:</label> 
-							<input type="text" th:field="*{playerName}"
-							class="form-control form-control-sm col-md-8" id="NombreJugador"
-							placeholder="Nombre del Jugador"> <small></small>
+						<label class="col-md-2" for="Username">Nombre de usuario:</label>
+						<input type="text" th:field="*{username}"
+							   class="form-control form-control-sm col-md-8" id="Username"
+							   placeholder="User Name" required> <small></small>
+						<label class="col-md-2" for="Password">Password:</label>
+						<input type="password" th:field="*{password}"
+							   class="form-control form-control-sm col-md-8" id="password"
+							   placeholder="Password" required> <small></small>
 					</div>
 					<div class="card-footer bg-dark">
-						<input type="submit" class="btn btn-primary btn-sm" value="Guardar"/>
+						<input type="submit" class="btn btn-primary btn-sm" value="Log in"/>
 					</div>
 				</form>
 			</div>

@@ -11,9 +11,9 @@
 		<h2 th:text="${statusMessage}"></h2>
 	</div>
 	<div class="container">
-		<a class="btn btn-primary btn-sm" th:href="@{/players/}+${playerId}+@{/game}"
+		<a class="btn btn-primary btn-sm" th:href="@{/v1/players/}+${playerId}+@{/game}"
 			th:text="'Nuevo Juego'" title="Nueva Tirada"></a>
-		<a class="btn btn-danger btn-sm" th:href="@{/players/}+${playerId}+@{/delete}"
+		<a class="btn btn-danger btn-sm" th:href="@{/v1/players/}+${playerId}+@{/delete}"
 			th:text="'Ocultar Juegos'" title="Ocultar Juegos"></a>
 		<table class="table">
 			<thead>

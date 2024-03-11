@@ -20,11 +20,14 @@
 
 				<div class="collapse navbar-collapse" id="navbarSupportedContent">
 					<ul class="navbar-nav mr-auto">
-						<li class="nav-item active"><a class="nav-link" th:href="@{/index}">Inicio
-						</a></li>
-						<li class="nav-item"><a class="nav-link" th:href="@{/player/}">Nuevo Jugador</a></li>
-						<li class="nav-item"><a class="nav-link" th:href="@{/player/players}">Lista de Jugadores</a></li>
-						<li class="nav-item"><a class="nav-link" th:href="@{/player/ranking}">Ranking</a></li>
+						<li class="nav-item active"><a class="nav-link"
+							th:href="@{/index}">Inicio </a></li>
+						<li class="nav-item"><a class="nav-link"
+							th:href="@{/v1/player/}">Nuevo Jugador</a></li>
+						<li class="nav-item"><a class="nav-link"
+							th:href="@{/v1/player/players}">Lista de Jugadores</a></li>
+						<li class="nav-item"><a class="nav-link"
+							th:href="@{/v1/player/ranking}">Ranking</a></li>
 					</ul>
 
 				</div>
@@ -34,7 +37,8 @@
 	<!-- CONTENIDO -->
 	<div class="container"></div>
 	<!-- PIE DE PAGINA -->
-	<footer th:fragment="footer" class="bg-dark text-center text-white fixed-bottom">
+	<footer th:fragment="footer"
+		class="bg-dark text-center text-white fixed-bottom">
 		<div class="container">
 			<p>pagina de jordi</p>
 		</div>
@@ -42,6 +46,25 @@
 			th:src="@{/js/jquery-3.3.1.slim.min.js}"></script>
 		<script type="text/javascript" th:src="@{/js/popper.min.js}"></script>
 		<script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
+		<script>
+    function getCookie(name) {
+        const value = `; ${document.cookie}`;
+        const parts = value.split(`; ${name}=`);
+        if (parts.length === 2) return parts.pop().split(';').shift();
+    }
+
+    var jwtToken = getCookie('jwt');
+    console.log('Token JWT:', jwtToken);
+
+    // Ahora puedes usar el token como sea necesario en tu aplicación
+</script>
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    var jwtToken = [[${jwtToken}]];
+    /*]]>*/
+</script>
+
 	</footer>
 </body>
+
 </html>

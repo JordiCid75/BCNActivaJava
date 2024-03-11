@@ -17,7 +17,7 @@ import cat.itacademy.barcelonactiva.cidherrera.jorge.s05.t02.n01.model.dto.Playe
 import cat.itacademy.barcelonactiva.cidherrera.jorge.s05.t02.n01.model.services.IPlayerService;
 
 @Controller
-@RequestMapping("/player")
+@RequestMapping("/v1/player")
 public class PlayerController {
 	@Autowired
 	IPlayerService playerService;
