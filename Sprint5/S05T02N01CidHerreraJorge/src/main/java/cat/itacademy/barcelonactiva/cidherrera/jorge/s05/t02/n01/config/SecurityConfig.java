@@ -36,9 +36,18 @@ public class SecurityConfig {
 				 .exceptionHandling(exception -> exception.authenticationEntryPoint(unauthorizedHandler))
 				 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 				 .authorizeHttpRequests(authHttp -> authHttp
-						 .requestMatchers(new AntPathRequestMatcher("/auth/**"),
+						 .requestMatchers(
+								 new AntPathRequestMatcher("/auth/**"),
+								 new AntPathRequestMatcher("/v1/**"),
+								 new AntPathRequestMatcher("/views/**"),
+								 new AntPathRequestMatcher("/templates/**"),
+								 new AntPathRequestMatcher("/static/**"),
+								 new AntPathRequestMatcher("/css/**"),
+								 new AntPathRequestMatcher("/js/**"),
+								 new AntPathRequestMatcher("/images/**"),
+								 new AntPathRequestMatcher("/v1/index"),
 						 new AntPathRequestMatcher("/login/**"))
-				 .permitAll().anyRequest().permitAll())
+				 .permitAll().anyRequest().authenticated())
              	.authenticationProvider(authProvider)
                 .addFilterBefore(JwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
                .formLogin(formLogin -> formLogin.loginPage("/login/frmLogin.html").permitAll())
